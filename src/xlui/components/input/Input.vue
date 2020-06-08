@@ -6,7 +6,7 @@
 
   export default {
     name: 'xlInput',
-    mixins: [ Emitter ],
+    mixins: [Emitter],
     props: {
       value: {
         type: String,
@@ -20,18 +20,19 @@
     },
     watch: {
       value (val) {
+        alert(val)
         this.currentValue = val
       }
     },
     methods: {
       handleInput (event) {
-        const value = event.target.value;
-        this.currentValue = value;
-        this.$emit('input', value);
-        this.dispatch('xlFormItem', 'on-form-change', value);
+        const value = event.target.value
+        this.currentValue = value
+        this.$emit('input', value)
+        this.dispatch('xlFormItem', 'on-form-change', value)
       },
       handleBlur () {
-        this.dispatch('xlFormItem', 'on-form-blur', this.currentValue);
+        this.dispatch('xlFormItem', 'on-form-blur', this.currentValue)
       }
     }
   }

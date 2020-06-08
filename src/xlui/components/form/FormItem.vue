@@ -14,7 +14,7 @@
 
   export default {
     name: 'xlFormItem',
-    mixins: [ Emitter ],
+    mixins: [Emitter],
     props: {
       label: { type: String, default: '' },
       prop: { type: String, default: '' }
@@ -30,7 +30,7 @@
     computed: {
       // 从 Form 的 model 中动态得到当前表单组件的数据
       fieldValue () {
-        return this.FormInstance.model[this.prop];
+        return this.FormInstance.model[this.prop]
       }
     },
     // 组件渲染时，将实例缓存在 Form 中
@@ -47,70 +47,70 @@
       this.dispatch('xlForm', 'on-form-item-remove', this)
     },
     methods: {
-      setRules() {
-        let rules = this.getRules();
+      setRules () {
+        let rules = this.getRules()
         if (rules.length && this.required) {
           return
         } else if (rules.length) {
           rules.every((rule) => {
             this.isRequired = rule.required
           })
-        }else if (this.required){
+        } else if (this.required) {
           this.isRequired = this.required
         }
-        this.$off('on-form-blur', this.onFieldBlur);
-        this.$off('on-form-change', this.onFieldChange);
-        this.$on('on-form-blur', this.onFieldBlur);
-        this.$on('on-form-change', this.onFieldChange);
+        this.$off('on-form-blur', this.onFieldBlur)
+        this.$off('on-form-change', this.onFieldChange)
+        this.$on('on-form-blur', this.onFieldBlur)
+        this.$on('on-form-change', this.onFieldChange)
       },
       getRules () {
-        let formRules = this.FormInstance.rules;
-        const selfRules = this.rules;
+        let formRules = this.FormInstance.rules
+        const selfRules = this.rules
 
-        formRules = formRules ? formRules[this.prop] : [];
+        formRules = formRules ? formRules[this.prop] : []
 
-        return [].concat(selfRules || formRules || []);
+        return [].concat(selfRules || formRules || [])
       },
       getFilteredRule (trigger) {
-        const rules = this.getRules();
-        return rules.filter(rule => !rule.trigger || rule.trigger.indexOf(trigger) !== -1);
+        const rules = this.getRules()
+        return rules.filter(rule => !rule.trigger || rule.trigger.indexOf(trigger) !== -1)
       },
-      validate(trigger, callback = function () {}) {
-        let rules = this.getFilteredRule(trigger);
+      validate (trigger, callback = function () {}) {
+        let rules = this.getFilteredRule(trigger)
         if (!rules || rules.length === 0) {
           if (!this.required) {
-            callback();
-            return true;
-          }else {
-            rules = [{required: true}];
+            callback()
+            return true
+          } else {
+            rules = [{ required: true }]
           }
         }
 
-        this.validateState = 'validating';
+        this.validateState = 'validating'
 
         // 以下为 async-validator 库的调用方法
-        let descriptor = {};
-        descriptor[this.prop] = rules;
+        let descriptor = {}
+        descriptor[this.prop] = rules
 
-        const validator = new AsyncValidator(descriptor);
-        let model = {};
+        const validator = new AsyncValidator(descriptor)
+        let model = {}
 
-        model[this.prop] = this.fieldValue;
+        model[this.prop] = this.fieldValue
 
         validator.validate(model, { firstFields: true }, errors => {
-          this.validateState = !errors ? 'success' : 'error';
-          this.validateMessage = errors ? errors[0].message : '';
+          this.validateState = !errors ? 'success' : 'error'
+          this.validateMessage = errors ? errors[0].message : ''
 
-          callback(this.validateMessage);
+          callback(this.validateMessage)
 
-          this.FormInstance && this.FormInstance.$emit('on-validate', this.prop, !errors, this.validateMessage || null);
-        });
-        this.validateDisabled = false;
+          this.FormInstance && this.FormInstance.$emit('on-validate', this.prop, !errors, this.validateMessage || null)
+        })
+        this.validateDisabled = false
       },
-      onFieldBlur() {
-        this.validate('blur');
+      onFieldBlur () {
+        this.validate('blur')
       },
-      onFieldChange() {
+      onFieldChange () {
         if (this.validateDisabled) {
           this.validateDisabled = false
           return
@@ -132,6 +132,7 @@
     content: '*';
     color: red;
   }
+
   .xl-form-item-message {
     color: red;
   }

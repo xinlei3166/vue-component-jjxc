@@ -22,6 +22,26 @@ const routes = [
     path: '/form',
     name: 'form',
     component: () => import(/* webpackChunkName: "form" */ '../views/MyForm.vue')
+  },
+  {
+    path: '/display',
+    name: 'display',
+    component: () => import(/* webpackChunkName: "display" */ '../views/Display.vue')
+  },
+  {
+    path: '/table',
+    name: 'table',
+    component: () => import(/* webpackChunkName: "table" */ '../views/Table.vue')
+  },
+  {
+    path: '/tree',
+    name: 'tree',
+    component: () => import(/* webpackChunkName: "tree" */ '../views/Tree.vue')
+  },
+  {
+    path: '/poly',
+    name: 'poly',
+    component: () => import(/* webpackChunkName: "poly" */ '../views/Poly.vue')
   }
 ]
 

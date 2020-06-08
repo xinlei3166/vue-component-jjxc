@@ -13,6 +13,16 @@
       <FormItem prop="d" label="d">
         <Input v-model="form.d"/>
       </FormItem>
+      <FormItem prop="e" label="e">
+        <Checkbox v-model="form.e" :trueValue="1" :falseValue="0"></Checkbox>
+      </FormItem>
+      <FormItem prop="f" label="f">
+        <CheckboxGroup v-model="form.f">
+          <Checkbox label="苹果">苹果</Checkbox>
+          <Checkbox label="香蕉">香蕉</Checkbox>
+          <Checkbox label="西瓜">西瓜</Checkbox>
+        </CheckboxGroup>
+      </FormItem>
       <FormItem>
         <button @click="handleSubmit">提交</button>
       </FormItem>
@@ -21,19 +31,17 @@
 </template>
 
 <script>
-  import Form from '../components/form/Form'
-  import FormItem from '../components/form/FormItem'
-  import Input from '../components/input/Input'
   export default {
     name: 'MyForm',
-    components: { FormItem, Form, Input },
-    data() {
+    data () {
       return {
         form: {
           a: '',
           b: '',
           c: '',
-          d: ''
+          d: '',
+          e: 1,
+          f: []
         },
         rules: {
           a: [
@@ -44,6 +52,9 @@
           ],
           c: [
             { required: true, message: '请输入c', trigger: 'blur' }
+          ],
+          f: [
+            { required: true, message: '请输入f', trigger: 'blur' }
           ]
         }
       }
@@ -52,11 +63,10 @@
       handleSubmit (e) {
         this.$refs.form.validate((valid) => {
           if (valid) {
-            console.log('提交成功');
-            console.log(this.from)
+            console.log('提交成功')
             e.preventDefault()
           } else {
-            console.log('表单校验失败');
+            console.log('表单校验失败')
             e.preventDefault()
           }
         })
