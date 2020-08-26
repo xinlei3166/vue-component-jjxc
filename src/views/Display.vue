@@ -6,7 +6,7 @@
 </template>
 
 <script>
-  import Display from '../xlui/components/display/Display'
+  import Display from '../../xlui/src/components/display/Display'
   import code from './code'
 
   export default {

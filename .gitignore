@@ -1,6 +1,9 @@
 .DS_Store
 node_modules
 /dist
+xlui/dist
+xlui/es
+xlui/lib
 
 # local env files
 .env.local
